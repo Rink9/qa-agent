@@ -1,0 +1,9 @@
+{
+  "name": "qa-agent-runs",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Generated automation harness for QA agent runs. Owned by Phase 5 (qa-execute).",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

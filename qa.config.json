@@ -1,0 +1,115 @@
+{
+  "jira": {
+    "source": "mcp",
+    "site": "trewknowledge.atlassian.net",
+    "projectKeys": [
+      "EDU101"
+    ],
+    "issueUrlTemplate": "https://trewknowledge.atlassian.net/browse/{key}",
+    "customFields": [],
+    "cloudId": "a062617d-3c02-4fd3-b164-2a3ee7eab78e",
+    "mode": "read-only",
+    "writeOperations": "forbidden",
+    "note": "This pipeline never writes to Jira. Read tools only (getJiraIssue, search, fetch). Bug reports are markdown deliverables under qa-runs/<KEY>/07-bug-reports/; a human files them if they want them in Jira."
+  },
+  "automation": {
+    "framework": "playwright",
+    "testRoot": "qa-runs/{key}/05-execution/tests",
+    "evidenceRoot": "qa-runs/{key}/05-execution/evidence",
+    "existingSuitePath": "",
+    "commands": {
+      "install": "npx playwright install --with-deps",
+      "runAll": "npx playwright test qa-runs/{key}/05-execution/tests/",
+      "runOne": "npx playwright test qa-runs/{key}/05-execution/tests/{testId}.spec.ts"
+    },
+    "capture": {
+      "screenshots": true,
+      "video": true,
+      "traces": true,
+      "consoleErrors": true,
+      "networkAndApiResponses": true,
+      "logs": true
+    }
+  },
+  "environments": {
+    "default": "staging",
+    "urls": {
+      "staging": "https://dev.glef.io",
+      "production": ""
+    }
+  },
+  "vocabulary": {
+    "testTypes": [
+      "Functional",
+      "UI",
+      "API",
+      "Integration",
+      "E2E",
+      "Regression",
+      "Negative",
+      "Responsive",
+      "Cross-browser",
+      "Accessibility",
+      "Performance",
+      "Security",
+      "Data"
+    ],
+    "qaStatus": [
+      "Passed",
+      "Failed",
+      "Blocked",
+      "Not Run",
+      "Requires Human Validation"
+    ],
+    "automationStatus": [
+      "Automated",
+      "Manual Only",
+      "Candidate",
+      "Blocked"
+    ],
+    "executionOwner": [
+      "AI Agent",
+      "QA Human",
+      "Shared"
+    ],
+    "severity": [
+      "Blocker",
+      "Critical",
+      "Major",
+      "Minor",
+      "Trivial"
+    ],
+    "priority": [
+      "P0",
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "confidence": [
+      "High",
+      "Medium",
+      "Low"
+    ]
+  },
+  "bugReport": {
+    "issueType": "Bug",
+    "requiredFields": [
+      "title",
+      "relatedTestId",
+      "jiraLink",
+      "environment",
+      "url",
+      "preconditions",
+      "stepsToReproduce",
+      "expected",
+      "actual",
+      "severity",
+      "priority",
+      "evidence",
+      "logs",
+      "affectedArea"
+    ],
+    "delivery": "markdown-only",
+    "issueTypeNote": "Recorded for the human who files it manually. The agent never creates the issue."
+  }
+}

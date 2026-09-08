@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Generated run data — one directory per Jira issue, created by the pipeline itself
+# (qa-agent Phase 0). Not shipped in the repo; a fresh clone creates it on first run.
+qa-runs/
+
+# OS / editor cruft
+.DS_Store
+*.swp
+
+# Env / secrets, in case any are ever added locally
+.env
+.env.*
+!.env.example
