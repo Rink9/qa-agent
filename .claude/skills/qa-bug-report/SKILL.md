@@ -36,7 +36,8 @@ Render every field in `qa.config.json` `bugReport.requiredFields`:
 - **Title** — `[Affected area] Observable problem under condition`. Unique in a backlog at a glance;
   never "doesn't work".
 - **Related Test ID** — `TC-###` (all of them if grouped).
-- **Jira link** — the parent issue key and URL from `qa.config.json` `issueUrlTemplate`.
+- **Jira link** — the parent issue key and URL from `qa.config.json` `issueUrlTemplate`,
+  substituting both `{site}` (from `jira.site`) and `{key}`.
 - **Environment** — env name, build/commit, browser/device/OS, account and role, feature flags.
 - **URL** — the exact page or endpoint where it reproduces.
 - **Preconditions** — the exact state required before step 1.

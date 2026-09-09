@@ -22,6 +22,15 @@ Read `qa.config.json` → `automation`. If `framework` or `commands` are empty, 
 install, run-all, run-one — and write the answers back so later runs are non-interactive. Do not
 infer a stack from whatever file extensions happen to be lying around.
 
+**The runner config is generic — never edit it per ticket.** `playwright.config.ts` (or whatever
+`automation.configPath` names) is shared by every run: it resolves `testDir`, `outputDir` and the
+raw-results path from the `QA_KEY` environment variable, and `baseURL` from
+`environments.urls[QA_ENV || environments.default]`. Run it as `automation.commands` says
+(`QA_KEY=<KEY> npx playwright test`). Pasting a ticket's paths into that file breaks every other
+run and silently points this run's evidence at another ticket's folder. If a case needs a second
+browser engine or a mobile viewport, tag the spec (`{ tag: ['@webkit'] }` — `@webkit`, `@firefox`,
+`@mobile`); do not add a project or a `testMatch` for a case id.
+
 **Before writing anything new, read the existing suite** (`automation.existingSuitePath`, or search
 the repo/path the user names). Reuse its page objects, API clients, fixtures, helpers, selectors and
 naming. Extending existing tests beats writing new ones; a parallel set of helpers is a defect, not

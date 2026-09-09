@@ -1,5 +1,5 @@
 {
-  "name": "qa-agent-runs",
+  "name": "qa-agent",
   "private": true,
   "version": "0.0.0",
   "description": "Generated automation harness for QA agent runs. Owned by Phase 5 (qa-execute).",

@@ -161,5 +161,4 @@ something needed is missing, the agent will ask you once and save the answer the
 
 ## Notes for a fresh clone
 
-`qa-runs/` is not committed — it's generated per run. When you (or a teammate) clones this repo and
-runs `/qa-agent` for the first time, that folder is created automatically.
+`qa-runs/` is not committed — it's generated per run.

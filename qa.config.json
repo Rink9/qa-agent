@@ -1,16 +1,15 @@
 {
   "jira": {
     "source": "mcp",
-    "site": "trewknowledge.atlassian.net",
-    "projectKeys": [
-      "EDU101"
-    ],
-    "issueUrlTemplate": "https://trewknowledge.atlassian.net/browse/{key}",
+    "site": "",
+    "projectKeys": [],
+    "issueUrlTemplate": "https://{site}/browse/{key}",
     "customFields": [],
-    "cloudId": "a062617d-3c02-4fd3-b164-2a3ee7eab78e",
+    "cloudId": "",
     "mode": "read-only",
     "writeOperations": "forbidden",
-    "note": "This pipeline never writes to Jira. Read tools only (getJiraIssue, search, fetch). Bug reports are markdown deliverables under qa-runs/<KEY>/07-bug-reports/; a human files them if they want them in Jira."
+    "note": "This pipeline never writes to Jira. Read tools only (getJiraIssue, search, fetch). Bug reports are markdown deliverables under qa-runs/<KEY>/07-bug-reports/; a human files them if they want them in Jira.",
+    "setupNote": "site, projectKeys and cloudId are tenant-specific and ship empty. Phase 0 fills them on the first run: cloudId and site come from the read-only getAccessibleAtlassianResources, projectKeys from the first key it is given. issueUrlTemplate substitutes {site} and {key}."
   },
   "automation": {
     "framework": "playwright",
@@ -19,8 +18,8 @@
     "existingSuitePath": "",
     "commands": {
       "install": "npx playwright install --with-deps",
-      "runAll": "npx playwright test qa-runs/{key}/05-execution/tests/",
-      "runOne": "npx playwright test qa-runs/{key}/05-execution/tests/{testId}.spec.ts"
+      "runAll": "QA_KEY={key} npx playwright test",
+      "runOne": "QA_KEY={key} npx playwright test {testId}"
     },
     "capture": {
       "screenshots": true,
@@ -29,14 +28,17 @@
       "consoleErrors": true,
       "networkAndApiResponses": true,
       "logs": true
-    }
+    },
+    "configPath": "playwright.config.ts",
+    "configNote": "playwright.config.ts is generic and shared by every run. It resolves testDir, outputDir and the raw-results path from QA_KEY, and baseURL from environments.urls[QA_ENV || environments.default]. Never edit it per ticket. Cross-browser coverage is opted into by tagging a spec @webkit / @firefox / @mobile."
   },
   "environments": {
     "default": "staging",
     "urls": {
-      "staging": "https://dev.glef.io",
+      "staging": "",
       "production": ""
-    }
+    },
+    "urlsNote": "Fill the environment you test against. Empty means unconfigured: the Playwright config fails fast rather than running against a blank baseURL. Add or rename keys freely; environments.default and QA_ENV select one by name."
   },
   "vocabulary": {
     "testTypes": [

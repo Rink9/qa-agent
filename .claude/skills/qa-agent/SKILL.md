@@ -55,7 +55,17 @@ Order is fixed. Never skip a phase, never run one whose input artifact is missin
 
 ## Phase 0 — INIT
 
-Create `qa-runs/<KEY>/`. Fetch the issue and snapshot it verbatim to `00-source.md`. Fetch order:
+**First, complete the config.** `qa.config.json` ships tenant-agnostic, so on a fresh clone
+`jira.site`, `jira.cloudId` and `environments.urls` are empty. Fill only what is empty, then write
+the file back so no later run asks again:
+
+- `jira.cloudId` / `jira.site` — resolve with `mcp__claude_ai_Atlassian__getAccessibleAtlassianResources`
+  (read-only). If it returns more than one site, ask which. Never guess.
+- `jira.projectKeys` — append the project prefix of the key you were given if it is not already there.
+- `environments.urls[environments.default]` — ask the user once for the URL to test against. Do not
+  invent a hostname and do not derive one from the Jira site.
+
+Then create `qa-runs/<KEY>/`. Fetch the issue and snapshot it verbatim to `00-source.md`. Fetch order:
 
 1. Atlassian MCP (`mcp__claude_ai_Atlassian__*`). On an auth failure, call the connector's
    `authenticate` tool, tell the user to complete it in the browser, then retry.
